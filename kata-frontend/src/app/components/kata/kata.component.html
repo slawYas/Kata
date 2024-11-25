@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Kata FOO BAR QUIX</h1>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form [formGroup]="kataForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="number" class="form-label fw-bold">Entrer un nombre entre 0 et 100:</label>
+          <input
+            id="number"
+            type="number"
+            class="form-control"
+            [ngClass]="{'is-invalid': kataForm.get('number')?.invalid && kataForm.get('number')?.touched}"
+            formControlName="number"
+            placeholder="Enrer un nombre"
+          />
+          <div class="invalid-feedback">
+            {{ getErrorMessage('number') }}
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="kataForm.invalid">
+          Soumettre
+        </button>
+      </form>
+    </div>
+  </div>
+
+  @if (result$ | async) {
+    <div class="mt-3">
+      <mat-card class="p-3">
+        <strong>Résultat :</strong>
+        <p>{{ (result$ | async)?.transformedNumber }}</p>
+      </mat-card>
+    </div>
+  }
+</div>
